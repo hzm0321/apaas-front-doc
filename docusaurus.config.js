@@ -9,7 +9,7 @@ const config = {
   title: '汉得中台 apaas 前端团队',
   tagline: 'Dinosaurs are cool',
   url: 'https://hzm0321.github.io',
-  baseUrl: '/',
+  baseUrl: '/apaas-front-doc/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
