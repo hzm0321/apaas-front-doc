@@ -1,6 +1,8 @@
 import React, {useMemo} from 'react';
 import {Tag} from '@chakra-ui/react'
 
+import MDXComponents from '@theme-original/MDXComponents';
+
 interface Props {
   type: TagType | keyof typeof TagType;
 }
@@ -66,4 +68,4 @@ const IntroTag: React.FC<Props> = ({type}) => {
   );
 };
 
-export default IntroTag;
+export default {...MDXComponents, IntroTag: IntroTag};
