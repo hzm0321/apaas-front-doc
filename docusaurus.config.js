@@ -81,46 +81,42 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: '文档资源',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: '项目开发规范',
+                to: '/docs/developStyle',
               },
             ],
           },
           {
-            title: 'Community',
+            title: '了解汉得',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: '汉得官网',
+                href: 'https://www.hand-china.com/',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: '招聘官网',
+                href: 'http://career.hand-china.com/',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: '汉得门户',
+                href: 'http://eip.hand-china.com/',
               },
             ],
           },
           {
-            title: 'More',
+            title: '更多',
             items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/hzm0321/apaas-front-doc',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Hand Apaas Team, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
