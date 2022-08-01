@@ -29,7 +29,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: '对外赋能',
-    Svg: require('@site/static/img/home/code.svg').default,
+    Svg: require('@site/static/img/home/teach.svg').default,
     description: (
       <>
         介绍 aPaaS 团队对外赋能的技术和服务
