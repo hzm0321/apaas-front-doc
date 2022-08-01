@@ -70,6 +70,7 @@ const config = {
             label: '项目开发规范',
           },
           {to: '/empty', label: 'react-vision', position: 'left'},
+          {to: '/blog', label: '博客', position: 'left'},
           {
             href: 'https://github.com/hzm0321/apaas-front-doc',
             label: 'GitHub',
