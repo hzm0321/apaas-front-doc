@@ -6,11 +6,11 @@ export default function MDXIntro({ type }) {
   const tagProps = useMemo(() => {
     const colorMap = {
       must: {
-        bg: '#00b42a', text: '必须'
+        bg: '#f53f3f', text: '必须'
       }, forbidden: {
         bg: '#f53f3f', text: '禁止'
       }, should: {
-        bg: '#165dff', text: '应当'
+        bg: '#ffb400', text: '应当'
       }, shouldNot: {
         bg: '#ffb400', text: '不应'
       }, optional: {
