@@ -27,6 +27,11 @@ const config = {
     locales: ['zh'],
   },
 
+  clientModules: [
+    // require.resolve('choerodon-ui/dist/choerodon-ui.css'),
+    require.resolve('choerodon-ui/lib/configure'),
+  ],
+
   presets: [
     [
       'classic',
@@ -124,6 +129,9 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+
+
 
   // webpack: {
   //   jsLoader: ()=> ({

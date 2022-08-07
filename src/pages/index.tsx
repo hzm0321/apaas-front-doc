@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import {ChakraProvider} from '@chakra-ui/react'
 
@@ -8,6 +8,7 @@ import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import OneWord from '@site/src/components/OneWord';
 
+// import "choerodon-ui/lib/configure";
 import styles from './index.module.css';
 
 function HomepageHeader() {
@@ -24,6 +25,12 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
+
+  useEffect(() => {
+    const rootElement = document.documentElement;
+    rootElement.style.fontSize = `${16}px`
+  },[])
+
   return (
     <MDXContent>
       <Layout

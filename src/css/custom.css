@@ -4,6 +4,10 @@
  * work well for content-centric websites.
  */
 /* You can override the default Infima variables here. */
+
+/*@import '~choerodon-ui/dist/choerodon-ui.css';*/
+/*@import '~choerodon-ui/dist/choerodon-ui-pro.css';*/
+
 :root {
   --ifm-color-primary: #012492;
   --ifm-color-primary-dark: #011A81;
@@ -13,6 +17,7 @@
   --ifm-color-primary-lighter: #466ABE;
   --ifm-color-primary-lightest: #AAC1E9;
   --ifm-code-font-size: 95%;
+  --ifm-breadcrumb-size-multiplier: 0.8 / 100;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
