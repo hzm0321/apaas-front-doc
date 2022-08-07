@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkapaas_front_doc=self.webpackChunkapaas_front_doc||[]).push([[535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Promise \u77e5\u8bc6\u70b9","permalink":"/apaas-front-doc/blog/Promise \u77e5\u8bc6\u70b9"}]}')}}]);

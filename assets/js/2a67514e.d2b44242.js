@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapaas_front_doc=self.webpackChunkapaas_front_doc||[]).push([[242],{40518:a=>{a.exports=JSON.parse('{"label":"ES6","permalink":"/apaas-front-doc/blog/tags/es-6","allTagsPath":"/apaas-front-doc/blog/tags","count":1}')}}]);
