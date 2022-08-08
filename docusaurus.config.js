@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '汉得中台 aPaaS 前端团队',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'Hand aPaaS',
   url: 'https://hzm0321.github.io',
   baseUrl: '/apaas-front-doc/',
   onBrokenLinks: 'throw',
@@ -30,6 +30,22 @@ const config = {
   clientModules: [
     // require.resolve('choerodon-ui/dist/choerodon-ui.css'),
     require.resolve('choerodon-ui/lib/configure'),
+  ],
+
+  themes: [
+    // ... Your other themes.
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        // ... Your options.
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+        // For Docs using Chinese, The `language` is recommended to set to:
+        // ```
+        language: ["en", "zh"],
+        // ```
+      },
+    ],
   ],
 
   presets: [

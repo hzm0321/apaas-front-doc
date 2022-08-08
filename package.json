@@ -18,6 +18,7 @@
     "@chakra-ui/react": "^2.2.4",
     "@docusaurus/core": "^2.0.1",
     "@docusaurus/preset-classic": "^2.0.1",
+    "@easyops-cn/docusaurus-search-local": "^0.30.2",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mdx-js/react": "^1.6.22",
