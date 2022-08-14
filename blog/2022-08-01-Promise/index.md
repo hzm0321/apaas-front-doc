@@ -29,6 +29,8 @@ tags: [JavaScript, ES6, Promise]
 
 :::
 
+<!--truncate-->
+
 ### 实例方法
 
 #### .then
