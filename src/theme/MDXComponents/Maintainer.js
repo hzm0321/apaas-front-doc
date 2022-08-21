@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Avatar, Tooltip } from 'antd';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { has } from 'lodash';
 
 export default function MDXIntro({ title="此篇维护者",authors = [] }) {
   const { siteConfig } = useDocusaurusContext();
+  const [tooltipVisible, setTooltipVisible,] = useState(false);
 
   const authorsData = siteConfig.customFields.authors;
 
@@ -33,7 +34,14 @@ export default function MDXIntro({ title="此篇维护者",authors = [] }) {
   >
     <span style={{ marginRight: '18px' }}> {title}:</span>
     {showAuthorsData.map((author) =>
-      <Tooltip  getPopupContainer={ (triggerNode) => triggerNode?.parentNode } title={`${author.job_no} ${author.name}`} placement="top">
+      <Tooltip
+        visible={tooltipVisible}
+        getPopupContainer={ (triggerNode) => triggerNode?.parentNode }
+        title={`${author.job_no} ${author.name}`}
+        placement="top"
+        onMouseEnter={()=> setTooltipVisible(true)}
+        onMouseLeave={()=> setTooltipVisible(false)}
+      >
       <Avatar onClick={()=> handleOpenUrl(author.url)} alt={author.name}  src={author.image_url} style={{ cursor: 'pointer' }} />
     </Tooltip>)}
   </Avatar.Group>;
