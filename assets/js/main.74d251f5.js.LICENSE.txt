@@ -8,6 +8,12 @@ object-assign
  * @license MIT */
 
 /*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+
+/*!
  * Snowball JavaScript Library v0.3
  * http://code.google.com/p/urim/
  * http://snowball.tartarus.org/
@@ -71,6 +77,8 @@ object-assign
  * lunr.utils
  * Copyright (C) 2020 Oliver Nightingale
  */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
  * Prism: Lightweight, robust, elegant syntax highlighting
