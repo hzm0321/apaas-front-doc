@@ -7,7 +7,6 @@ import '../css/theme.less';
 // Default implementation, that you can customize
 export default function Root({children}) {
   const location = useLocation();
-  console.log('路由', location)
   const isShowDocFeedback = () => {
     return location.pathname.includes('apaas-front-doc/docs')
   }
