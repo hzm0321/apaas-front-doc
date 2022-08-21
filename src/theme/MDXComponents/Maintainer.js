@@ -33,7 +33,7 @@ export default function MDXIntro({ title="此篇维护者",authors = [] }) {
   >
     <span style={{ marginRight: '18px' }}> {title}:</span>
     {showAuthorsData.map((author) =>
-      <Tooltip title={`${author.job_no} ${author.name}`} placement="top">
+      <Tooltip  getPopupContainer={ (triggerNode) => triggerNode?.parentNode } title={`${author.job_no} ${author.name}`} placement="top">
       <Avatar onClick={()=> handleOpenUrl(author.url)} alt={author.name}  src={author.image_url} style={{ cursor: 'pointer' }} />
     </Tooltip>)}
   </Avatar.Group>;
