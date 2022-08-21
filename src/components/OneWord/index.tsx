@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Center} from '@chakra-ui/react'
+
+import styles from './index.module.scss';
 
 interface Props {
 }
@@ -17,14 +18,14 @@ const OneWord: React.FC<Props> = () => {
   }, [])
 
   return (
-    <>
-      <Center className="hero__subtitle">
+    <div className={styles.wrapper}>
+      <div className={styles.word}>
         『 {data.hitokoto}』
-      </Center>
-      <Center>
+      </div>
+      <div className={styles.who}>
         —— {data.from_who} 「{data.from}」
-      </Center>
-    </>
+      </div>
+    </div>
   );
 };
 

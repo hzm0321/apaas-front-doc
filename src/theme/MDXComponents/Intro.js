@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Tag } from '@chakra-ui/react'
+import { Tag } from 'antd';
 
 export default function MDXIntro({ type }) {
 
@@ -22,15 +22,5 @@ export default function MDXIntro({ type }) {
 
     return colorMap[type];
   }, [type]);
-  return <Tag
-    borderRadius="4px"
-    variant='solid'
-    paddingX="8px"
-    verticalAlign="middle"
-    fontSize="14px"
-    backgroundColor={tagProps.bg}
-    color="white"
-  >
-    {tagProps.text}
-  </Tag>;
+  return <Tag color={tagProps.bg}>{tagProps.text}</Tag>;
 }

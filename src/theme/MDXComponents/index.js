@@ -9,6 +9,7 @@ import MDXUl from '@theme/MDXComponents/Ul';
 import MDXImg from '@theme/MDXComponents/Img';
 import Admonition from '@theme/Admonition';
 import Intro from './Intro';
+import Maintainer from './Maintainer';
 const MDXComponents = {
   head: MDXHead,
   code: MDXCode,
@@ -25,5 +26,6 @@ const MDXComponents = {
   h6: (props) => <MDXHeading as="h6" {...props} />,
   admonition: Admonition,
   intro: Intro,
+  maintainer: Maintainer,
 };
 export default MDXComponents;

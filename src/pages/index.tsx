@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import clsx from 'clsx';
-import {ChakraProvider} from '@chakra-ui/react'
 
 import MDXContent from '@theme/MDXContent';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -16,7 +15,7 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
+        <div className="hero__title">{siteConfig.title}</div>
         <OneWord />
       </div>
     </header>
@@ -29,7 +28,7 @@ export default function Home(): JSX.Element {
   useEffect(() => {
     const rootElement = document.documentElement;
     rootElement.style.fontSize = `${16}px`
-  },[])
+  }, [])
 
   return (
     <MDXContent>
