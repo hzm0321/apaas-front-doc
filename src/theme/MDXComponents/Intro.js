@@ -22,5 +22,5 @@ export default function MDXIntro({ type }) {
 
     return colorMap[type];
   }, [type]);
-  return <Tag color={tagProps.bg}>{tagProps.text}</Tag>;
+  return <Tag style={{border: 'none', fontSize: '14px'}} color={tagProps.bg}>{tagProps.text}</Tag>;
 }

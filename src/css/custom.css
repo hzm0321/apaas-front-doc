@@ -37,3 +37,19 @@ code {
   color: var(--ifm-color-primary);
   background-color: rgb(232,243,255);
 }
+
+.code-block-error-line {
+  background-color: #770813;
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid #F53F3F;
+}
+
+.code-block-right-line {
+  background-color: #113092;
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid #466ABE;
+}

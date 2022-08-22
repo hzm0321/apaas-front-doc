@@ -1,7 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 const yaml = require('js-yaml');
-const fs   = require('fs');
+const fs = require('fs');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
@@ -70,7 +70,8 @@ const config = {
         }, {
           href: 'https://github.com/hzm0321/apaas-front-doc', label: 'GitHub', position: 'right',
         },],
-      }, footer: {
+      },
+      footer: {
         style: 'dark', links: [{
           title: '文档资源', items: [{
             label: '项目开发规范', to: '/docs/developStyle',
@@ -88,8 +89,23 @@ const config = {
             label: 'GitHub', href: 'https://github.com/hzm0321/apaas-front-doc',
           },],
         },], copyright: `Copyright © ${new Date().getFullYear()} Hand aPaaS Team, Inc. Built with Docusaurus.`,
-      }, prism: {
+      },
+      prism: {
         theme: lightCodeTheme, darkTheme: darkCodeTheme,
+        magicComments: [
+          // 要记得复制默认的高亮类！
+          {
+            className: 'code-block-right-line',
+            line: 'This will right',
+            block: {start: 'right-start', end: 'right-end'},
+          },
+          {
+            className: 'code-block-error-line',
+            line: 'This will error',
+            block: {start: 'error-start', end: 'error-end'},
+          },
+
+        ],
       },
     }),
 
