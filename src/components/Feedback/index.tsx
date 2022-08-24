@@ -2,6 +2,7 @@ import React from 'react';
 import {MailOutlined} from "@ant-design/icons";
 import {Button, Tooltip} from "antd";
 
+import styles from './index.module.less';
 
 interface Props {
 }
@@ -15,21 +16,19 @@ const Feedback: React.FC<Props> = () => {
   }
 
   return (
-    <Tooltip title="规范反馈">
-      <Button
-        style={{
-          position: 'fixed',
-          zIndex: 9999,
-          right: '25px',
-          bottom: '80px',
-        }}
-        type="primary"
-        shape="circle"
-        size="large"
-        icon={<MailOutlined />}
-        onClick={toFeedback}
-      />
-    </Tooltip>
+    <div className={styles.wrapper}>
+      <Tooltip title="规范反馈" getPopupContainer={ (triggerNode) => triggerNode?.parentNode }>
+        <Button
+          className={styles.feedback}
+          type="primary"
+          shape="circle"
+          size="large"
+          icon={<MailOutlined />}
+          onClick={toFeedback}
+        />
+      </Tooltip>
+    </div>
+
   );
 };
 

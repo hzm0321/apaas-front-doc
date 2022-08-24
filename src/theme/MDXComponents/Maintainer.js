@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Avatar, Tooltip } from 'antd';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { has } from 'lodash';
