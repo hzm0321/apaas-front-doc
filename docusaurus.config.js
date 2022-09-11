@@ -42,7 +42,7 @@ const config = {
       language: ["en", "zh"], // ```
     },],],
 
-  presets: [['classic', /** @type {import('@docusaurus/preset-classic').Options} */
+  presets: [['@docusaurus/preset-classic', /** @type {import('@docusaurus/preset-classic').Options} */
     ({
       docs: {
         sidebarPath: require.resolve('./sidebars.js'), // Please change this to your repo.
@@ -54,11 +54,11 @@ const config = {
       }, theme: {
         customCss: require.resolve('./src/css/custom.css'),
       },
-      googleAnalytics: {
-        trackingID: 'G-9WN9XYZ8XQ',
-        anonymizeIP: true,
-      },
-    }),],],
+      // googleAnalytics: {
+      //   trackingID: 'G-9WN9XYZ8XQ',
+      //   anonymizeIP: true,
+      // }
+    }),]],
 
   themeConfig: /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -101,12 +101,12 @@ const config = {
           {
             className: 'code-block-right-line',
             line: 'This will right',
-            block: {start: 'right-start', end: 'right-end'},
+            block: { start: 'right-start', end: 'right-end' },
           },
           {
             className: 'code-block-error-line',
             line: 'This will error',
-            block: {start: 'error-start', end: 'error-end'},
+            block: { start: 'error-start', end: 'error-end' },
           },
 
         ],
@@ -127,10 +127,13 @@ const config = {
       },
     }),
 
-  plugins: ['docusaurus-plugin-sass', ['docusaurus-plugin-less', { /* options */ lessOptions: {
-      javascriptEnabled: true,
-    }
-  }]],
+  plugins: [
+    'docusaurus-plugin-sass',
+    ['docusaurus-plugin-less', { /* options */ lessOptions: {
+        javascriptEnabled: true,
+      }
+    }],
+  ],
 
   // webpack: {
   //   jsLoader: ()=> ({
