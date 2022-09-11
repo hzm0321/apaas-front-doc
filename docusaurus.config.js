@@ -97,12 +97,12 @@ const config = {
           {
             className: 'code-block-right-line',
             line: 'This will right',
-            block: {start: 'right-start', end: 'right-end'},
+            block: { start: 'right-start', end: 'right-end' },
           },
           {
             className: 'code-block-error-line',
             line: 'This will error',
-            block: {start: 'error-start', end: 'error-end'},
+            block: { start: 'error-start', end: 'error-end' },
           },
 
         ],
@@ -123,10 +123,20 @@ const config = {
       },
     }),
 
-  plugins: ['docusaurus-plugin-sass', ['docusaurus-plugin-less', { /* options */ lessOptions: {
-      javascriptEnabled: true,
-    }
-  }]],
+  plugins: [
+    'docusaurus-plugin-sass',
+    ['docusaurus-plugin-less', { /* options */ lessOptions: {
+        javascriptEnabled: true,
+      }
+    }],
+    [
+      '@docusaurus/plugin-google-analytics',
+      {
+        trackingID: 'G-9WN9XYZ8XQ',
+        anonymizeIP: true,
+      },
+    ],
+  ],
 
   // webpack: {
   //   jsLoader: ()=> ({
