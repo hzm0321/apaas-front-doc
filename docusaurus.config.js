@@ -111,20 +111,6 @@ const config = {
 
         ],
       },
-      colorMode: {
-        defaultMode: 'light',
-        disableSwitch: true,
-        respectPrefersColorScheme: false,
-      },
-      // 告示条
-      announcementBar: {
-        id: 'support_us',
-        content:
-          '<a target="_blank" rel="noopener noreferrer" href="/apaas-front-doc/docs/developStyle">《项目开发规范文档》</a>目前仍处于编写阶段，如果您在使用过程中有更好的想法或建议，欢迎企业微信私聊该篇文章对应的维护人或提<a target="_blank" rel="noopener noreferrer" href="https://www.wenjuan.com/s/UZBZJvrf3K/#">问卷反馈</a>',
-        backgroundColor: '#fafbfc',
-        textColor: '#091E42',
-        isCloseable: true,
-      },
     }),
 
   plugins: [
