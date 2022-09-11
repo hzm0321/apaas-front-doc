@@ -54,10 +54,10 @@ const config = {
       }, theme: {
         customCss: require.resolve('./src/css/custom.css'),
       },
-      googleAnalytics: {
+      gtag: {
         trackingID: 'G-9WN9XYZ8XQ',
         anonymizeIP: true,
-      }
+      },
     }),]],
 
   themeConfig: /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
