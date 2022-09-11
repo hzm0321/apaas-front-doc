@@ -42,7 +42,7 @@ const config = {
       language: ["en", "zh"], // ```
     },],],
 
-  presets: [['classic', /** @type {import('@docusaurus/preset-classic').Options} */
+  presets: [['@docusaurus/preset-classic', /** @type {import('@docusaurus/preset-classic').Options} */
     ({
       docs: {
         sidebarPath: require.resolve('./sidebars.js'), // Please change this to your repo.
