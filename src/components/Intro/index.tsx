@@ -8,11 +8,10 @@ import './intro.css';
 export interface IntroRefType extends introJs.IntroJs {}
 
 interface Props {
-  enabled: boolean; // 是否启用
   steps: introJs.Step[]; // 步骤
+  onExit: Parameters<introJs.IntroJs['onexit']>[0];
   options?: introJs.Options; // 配置
   initialStep?: number; // 初始化时的所在步骤
-  onExit?: Parameters<introJs.IntroJs['onexit']>[0];
   onBeforeExit?: Parameters<introJs.IntroJs['onbeforeexit']>[0];
   onBeforeChange?: Parameters<introJs.IntroJs['onbeforechange']>[0];
   onAfterChange?: Parameters<introJs.IntroJs['onafterchange']>[0];
@@ -25,7 +24,6 @@ interface Props {
  * @constructor
  */
 const Intro = forwardRef<IntroRefType, Props>(( {
-                                                  enabled,
                                                   steps,
                                                   options = {},
                                                   initialStep,
@@ -42,15 +40,11 @@ const Intro = forwardRef<IntroRefType, Props>(( {
   useImperativeHandle(ref, () => introJsRef.current);
 
   useEffect(() => {
-    if (enabled) {
-      // 写入配置
-      configureIntroJs();
-      // 开始渲染
-      renderSteps();
-    } else {
-      introJsRef.current.exit();
-    }
-  }, [enabled, steps, initialStep]);
+    // 写入配置
+    configureIntroJs();
+    // 开始渲染
+    renderSteps();
+  }, [steps, initialStep]);
 
   useEffect(() => {
     return () => {
@@ -79,13 +73,13 @@ const Intro = forwardRef<IntroRefType, Props>(( {
   };
 
   const renderSteps = useCallback(() => {
-    if (enabled && !isEmpty(steps)) {
+    if (!isEmpty(steps)) {
       introJsRef.current.start();
     }
     if (isNumber(initialStep)) {
       introJsRef.current.goToStepNumber(initialStep + 1);
     }
-  }, [enabled, steps, initialStep]);
+  }, [steps, initialStep]);
 
   return null;
 });
