@@ -9,9 +9,9 @@ TypeScript 类型体操，让你的 TypeScript 代码更加健壮。题库地址
 
 <!--truncate-->
 
-### 热身
+## 热身
 
-#### 13. Hello World
+### 13. Hello World
 
 期望 `HelloWorld` 是一个 `string` 类型
 
@@ -27,9 +27,9 @@ type HelloWorld = string
 ```
 </details>
 
-### 简单
+## 简单
 
-#### 4. Pick
+### 4. Pick
 
 实现一个 `Pick<T, K>`，从 `T` 中挑选出一系列 `K` 的属性。  
 
@@ -60,7 +60,7 @@ type Pick<T, K extends keyof T> = {
 ```
 </details>
 
-#### 7. Readonly
+### 7. Readonly
 
 不要使用内置的`Readonly<T>`，自己实现一个。
 
@@ -96,7 +96,7 @@ type Readonly<T> = {
 ```
 </details>
 
-#### 11. 元组转换为对象
+### 11. 元组转换为对象
 
 传入一个元组类型，将这个元组类型转换为对象类型，这个对象类型的键/值都是从元组中遍历出来。
 
@@ -119,7 +119,7 @@ type TupleToObject<T extends readonly (string | number | symbol)[]> = {
 ```
 </details>
 
-#### 14. 第一个元素
+### 14. 第一个元素
 
 实现一个通用`First<T>`，它接受一个数组`T`并返回它的第一个元素的类型。
 
@@ -141,7 +141,7 @@ type First<T extends any[]> = T extends [] ? never :  T[0]
 ```
 </details>
 
-#### 18. 获取元组长度
+### 18. 获取元组长度
 
 创建一个通用的`Length`，接受一个`readonly`的数组，返回这个数组的长度。
 
@@ -163,7 +163,7 @@ type Length<T extends readonly any[]> = T["length"]
 ```
 </details>
 
-#### 43. Exclude
+### 43. Exclude
 
 实现内置的 `Exclude<T, U>` 类型，但不能直接使用它本身。
 
