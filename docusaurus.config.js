@@ -40,7 +40,9 @@ const config = {
       hashed: true, // For Docs using Chinese, The `language` is recommended to set to:
       // ```
       language: ["en", "zh"], // ```
-    },],],
+    },],
+    '@docusaurus/theme-live-codeblock'
+  ],
 
   presets: [['@docusaurus/preset-classic', /** @type {import('@docusaurus/preset-classic').Options} */
     ({
