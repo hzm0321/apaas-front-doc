@@ -172,7 +172,7 @@ type Length<T extends readonly any[]> = T["length"]
 例如：
 
 ```ts
-type Result = MyExclude<'a' | 'b' | 'c', 'a'> // 'b' | 'c'
+type Result = Exclude<'a' | 'b' | 'c', 'a'> // 'b' | 'c'
 ```
 
 <details>
@@ -182,3 +182,112 @@ type Result = MyExclude<'a' | 'b' | 'c', 'a'> // 'b' | 'c'
 type Exclude<T, U> = T extends U ? never : T
 ```
 </details>
+
+### 189. Awaited
+
+实现一个 `Awaited<T>`，它接受一个 `Promise` 类型并返回它 resolve 的类型。
+
+例如：`Promise<ExampleType>`，请你返回 ExampleType 类型。
+
+```ts
+type ExampleType = Promise<string>
+
+type Result = Awaited<ExampleType> // string
+```
+
+<details>
+  <summary>题解</summary>
+
+```ts
+type Awaited<T extends Promise<unknown>> = T extends Promise<infer P> ? P extends Promise<unknown> ? Awaited<P> : P : never
+```
+</details>
+
+### 268. If
+
+实现一个 `IF` 类型，它接收一个条件类型 `C` ，一个判断为真时的返回类型 `T` ，以及一个判断为假时的返回类型 `F`。 `C` 只能是 `true` 或者 `false`， `T` 和 `F` 可以是任意类型。
+
+例如：
+
+```ts
+type A = If<true, 'a', 'b'>  // expected to be 'a'
+type B = If<false, 'a', 'b'> // expected to be 'b'
+```
+
+### 533. Concat
+
+在类型系统里实现 JavaScript 内置的 `Array.concat` 方法，这个类型接受两个参数，返回的新数组类型应该按照输入参数从左到右的顺序合并为一个新的数组。
+
+例如：
+
+```ts
+type Result = Concat<[1], [2]> // expected to be [1, 2]
+```
+
+<details>
+  <summary>题解</summary>
+
+```ts
+type Concat<T extends unknown[], U extends unknown[]> = [...T, ...U]
+```
+</details>
+
+### 898. Includes
+
+在类型系统里实现 JavaScript 的 `Array.includes` 方法，这个类型接受两个参数，返回的类型要么是 `true` 要么是 `false`。
+
+例如：
+
+```ts
+type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // expected to be `false`
+```
+
+<details>
+  <summary>题解</summary>
+
+```ts
+
+type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+    (<T>() => T extends Y ? 1 : 2) ? true : false
+
+type Includes<T extends readonly unknown[], U> = T extends [infer F, ...infer R] ? Equal<F, U> extends true ? true : Includes<R, U> : false
+```
+</details>
+
+### 3057. Push
+
+在类型系统里实现通用的 ```Array.push``` 。
+
+例如：
+
+```typescript
+type Result = Push<[1, 2], '3'> // [1, 2, '3']
+```
+
+<details>
+  <summary>题解</summary>
+
+```ts
+type Push<T extends unknown[], U> = [...T, U]
+```
+</details>
+
+### 3060. Unshift
+
+实现类型版本的 ```Array.unshift```。
+
+例如：
+
+```typescript
+type Result = Unshift<[1, 2], 0> // [0, 1, 2,]
+```
+
+<details>
+  <summary>题解</summary>
+
+```ts
+type Unshift<T extends unknown[], U> = [U, ...T]
+```
+</details>
+
