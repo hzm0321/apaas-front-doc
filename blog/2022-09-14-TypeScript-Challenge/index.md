@@ -291,3 +291,78 @@ type Unshift<T extends unknown[], U> = [U, ...T]
 ```
 </details>
 
+### 3312. Parameters
+
+实现一个 `Parameters<T>`，它接受一个函数类型 `T` 并返回一个由参数类型组成的元组。
+
+例如：
+
+```ts
+const foo = (arg1: string, arg2: number): void => {}
+
+type FunctionParamsType = MyParameters<typeof foo> // [arg1: string, arg2: number]
+```
+
+<details>
+  <summary>题解</summary>
+
+```ts
+type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never
+```
+</details>
+
+## 中等
+
+### 2. 获取函数返回类型
+
+不使用 `ReturnType` 实现 TypeScript 的 `ReturnType<T>` 泛型。
+
+例如：
+
+```ts
+const fn = (v: boolean) => {
+  if (v)
+    return 1
+  else
+    return 2
+}
+
+type a = MyReturnType<typeof fn> // 应推导出 "1 | 2"
+```
+<details>
+  <summary>题解</summary>
+
+```ts
+type ReturnType<T extends (...args: any[])=> any> = T extends (...args: any[]) => infer R ? R : any
+```
+</details>
+
+### 3. Omit
+
+不使用 `Omit` 实现 TypeScript 的 `Omit<T, K>` 泛型。
+
+`Omit` 会创建一个省略 `K` 中字段的 `T` 对象。
+
+例如：
+
+```ts
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+type TodoPreview = MyOmit<Todo, 'description' | 'title'>
+
+const todo: TodoPreview = {
+  completed: false,
+}
+```
+
+<details>
+  <summary>题解</summary>
+
+```ts
+type MyOmit<T, K extends keyof T> = { [P in keyof T as P extends K ? never : P]: T[P] };
+```
+</details>
