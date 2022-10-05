@@ -40,9 +40,7 @@ const config = {
       hashed: true, // For Docs using Chinese, The `language` is recommended to set to:
       // ```
       language: ["en", "zh"], // ```
-    },],
-    '@docusaurus/theme-live-codeblock'
-  ],
+    },], '@docusaurus/theme-live-codeblock'],
 
   presets: [['@docusaurus/preset-classic', /** @type {import('@docusaurus/preset-classic').Options} */
     ({
@@ -55,10 +53,8 @@ const config = {
         // Remove this to remove the "edit this page" links.
       }, theme: {
         customCss: require.resolve('./src/css/custom.css'),
-      },
-      gtag: {
-        trackingID: 'G-9WN9XYZ8XQ',
-        anonymizeIP: true,
+      }, gtag: {
+        trackingID: 'G-9WN9XYZ8XQ', anonymizeIP: true,
       },
     }),]],
 
@@ -69,19 +65,22 @@ const config = {
           alt: '汉得中台 aPaaS 前端团队', src: 'img/logo.svg',
         }, items: [{
           type: 'doc', docId: 'developStyle', position: 'left', label: '项目开发规范',
-        }, { to: '/empty', label: 'react-vision', position: 'left' }, {
-          to: '/blog',
-          label: '博客',
+        }, { href: 'https://beta.reactjs.org/', label: 'React Doc(BETA)', position: 'left' }, {
+          to: '/empty',
+          label: 'react-vision',
           position: 'left'
-        }, {
+        }, { to: '/blog', label: '博客', position: 'left' }, {
           href: 'https://github.com/hzm0321/apaas-front-doc', label: 'GitHub', position: 'right',
         },],
-      },
-      footer: {
+      }, footer: {
         style: 'dark', links: [{
           title: '文档资源', items: [{
             label: '项目开发规范', to: '/docs/developStyle',
-          },],
+          },
+            {
+              href: 'https://beta.reactjs.org/', label: 'React Doc(BETA)',
+            }
+          ],
         }, {
           title: '了解汉得', items: [{
             label: '汉得官网', href: 'https://www.hand-china.com/',
@@ -95,47 +94,35 @@ const config = {
             label: 'GitHub', href: 'https://github.com/hzm0321/apaas-front-doc',
           },],
         },], copyright: `Copyright © ${new Date().getFullYear()} Hand aPaaS Team, Inc. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: lightCodeTheme, darkTheme: darkCodeTheme,
-        magicComments: [
-          // 要记得复制默认的高亮类！
+      }, prism: {
+        theme: lightCodeTheme, darkTheme: darkCodeTheme, magicComments: [// 要记得复制默认的高亮类！
           {
             className: 'code-block-right-line',
             line: 'This will right',
             block: { start: 'right-start', end: 'right-end' },
-          },
-          {
+          }, {
             className: 'code-block-error-line',
             line: 'This will error',
             block: { start: 'error-start', end: 'error-end' },
           },
 
         ],
-      },
-      colorMode: {
-        defaultMode: 'light',
-        disableSwitch: true,
-        respectPrefersColorScheme: false,
-      },
-      // 告示条
+      }, colorMode: {
+        defaultMode: 'light', disableSwitch: true, respectPrefersColorScheme: false,
+      }, // 告示条
       announcementBar: {
         id: '2020-09-14',
-        content:
-          '<a target="_blank" rel="noopener noreferrer" href="/apaas-front-doc/docs/developStyle">《项目开发规范文档》</a>目前仍处于编写阶段，如果您在使用过程中有更好的想法或建议，欢迎企业微信私聊该篇文章对应的维护人或提<a target="_blank" rel="noopener noreferrer" href="https://www.wenjuan.com/s/UZBZJvrf3K/#">问卷反馈</a>',
+        content: '<a target="_blank" rel="noopener noreferrer" href="/apaas-front-doc/docs/developStyle">《项目开发规范文档》</a>目前仍处于编写阶段，如果您在使用过程中有更好的想法或建议，欢迎企业微信私聊该篇文章对应的维护人或提<a target="_blank" rel="noopener noreferrer" href="https://www.wenjuan.com/s/UZBZJvrf3K/#">问卷反馈</a>',
         backgroundColor: 'rgb(232,243,255)',
         textColor: '#012492',
         isCloseable: true,
       },
     }),
 
-  plugins: [
-    'docusaurus-plugin-sass',
-    ['docusaurus-plugin-less', { /* options */ lessOptions: {
-        javascriptEnabled: true,
-      }
-    }],
-  ],
+  plugins: ['docusaurus-plugin-sass', ['docusaurus-plugin-less', { /* options */ lessOptions: {
+      javascriptEnabled: true,
+    }
+  }],],
 
   // webpack: {
   //   jsLoader: ()=> ({
