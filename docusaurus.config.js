@@ -65,7 +65,7 @@ const config = {
           alt: '汉得中台 aPaaS 前端团队', src: 'img/logo.svg',
         }, items: [{
           type: 'doc', docId: 'developStyle', position: 'left', label: '项目开发规范',
-        }, { href: 'https://beta.reactjs.org/', label: 'React Doc(BETA)', position: 'left' }, {
+        }, { href: 'https://beta.reactjs.org/', label: 'React Docs(BETA)', position: 'left' }, {
           to: '/empty',
           label: 'react-vision',
           position: 'left'
@@ -78,7 +78,7 @@ const config = {
             label: '项目开发规范', to: '/docs/developStyle',
           },
             {
-              href: 'https://beta.reactjs.org/', label: 'React Doc(BETA)',
+              href: 'https://beta.reactjs.org/', label: 'React Docs(BETA)',
             }
           ],
         }, {
