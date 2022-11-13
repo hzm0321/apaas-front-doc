@@ -1,4 +1,5 @@
 import React from "react";
+import { ConfigProvider } from 'antd';
 import {useLocation} from "@docusaurus/router";
 
 import Feedback from '../components/Feedback';
@@ -12,7 +13,15 @@ export default function Root({children}) {
   }
 
   return (<>
-    {children}
-    {isShowDocFeedback() && <Feedback />}
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#012492',
+        },
+      }}
+    >
+      {children}
+      {isShowDocFeedback() && <Feedback />}
+    </ConfigProvider>
   </>);
 }
