@@ -105,10 +105,9 @@ const config = {
             line: 'This will error',
             block: { start: 'error-start', end: 'error-end' },
           },
-
         ],
       }, colorMode: {
-        defaultMode: 'light', disableSwitch: true, respectPrefersColorScheme: false,
+        defaultMode: 'light', disableSwitch: false, respectPrefersColorScheme: false,
       }, // 告示条
       announcementBar: {
         id: '2020-09-14',
