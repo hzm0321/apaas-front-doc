@@ -1,6 +1,6 @@
 ---
 slug: TypeScript Challenge
-title: TypeScript Challenge
+title: TypeScript 练习题
 authors: [hzm]
 tags: [TypeScript]
 ---
@@ -213,6 +213,14 @@ type Awaited<T extends Promise<unknown>> = T extends Promise<infer P> ? P extend
 type A = If<true, 'a', 'b'>  // expected to be 'a'
 type B = If<false, 'a', 'b'> // expected to be 'b'
 ```
+
+<details>
+  <summary>题解</summary>
+
+```ts
+type If<T extends boolean, A ,B> = T extends true ? A : B;
+```
+</details>
 
 ### 533. Concat
 
