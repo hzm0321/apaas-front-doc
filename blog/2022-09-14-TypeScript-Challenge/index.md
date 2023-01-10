@@ -374,3 +374,30 @@ const todo: TodoPreview = {
 type MyOmit<T, K extends keyof T> = { [P in keyof T as P extends K ? never : P]: T[P] };
 ```
 </details>
+
+### 7. Readonly 2
+
+实现一个通用MyReadonly2<T, K>，它带有两种类型的参数T和K。 
+
+K指定应设置为只读的属性的子集。
+
+
+例如：
+
+```ts
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+const todo: MyReadonly2<Todo, 'title' | 'description'> = {
+  title: "Hey",
+  description: "foobar",
+  completed: false,
+}
+
+todo.title = "Hello" // Error: cannot reassign a readonly property
+todo.description = "barFoo" // Error: cannot reassign a readonly property
+todo.completed = true // OK
+```
