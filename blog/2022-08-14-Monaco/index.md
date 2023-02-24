@@ -537,3 +537,35 @@ useEffect(() => {
   };
 }, [variableData]);
 ```
+
+### 撤销/重做
+
+```tsx
+// 撤销
+editorInstance.trigger('keyboard', 'undo', null);
+// 重做
+editorInstance.trigger('keyboard', 'redo', null);
+```
+
+### 汉化
+
+安装 webpack 插件 `monaco-editor-chinese-plugin`，并在 `config/config.ts` 中配置
+
+```ts
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+// This will right
+const MonacoChinesePlugin = require('monaco-editor-chinese-plugin');
+
+const config: IConfig = {
+  chainWebpack: (c) => {
+    c.plugin('monaco-editor-webpack-plugin').use(new MonacoWebpackPlugin({
+      languages: ['javascript', 'typescript', 'sql', 'json'],
+    }));
+    // This will right
+    c.plugin('monaco-editor-chinese-plugin').use(new MonacoChinesePlugin());
+    // ......
+  },
+  // 其余配置 ......
+};
+export default config;
+```
