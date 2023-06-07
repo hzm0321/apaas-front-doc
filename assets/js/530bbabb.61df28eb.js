@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapaas_front_doc=self.webpackChunkapaas_front_doc||[]).push([[1494],{7234:a=>{a.exports=JSON.parse('{"label":"antv/x6","permalink":"/apaas-front-doc/blog/tags/antv-x-6","allTagsPath":"/apaas-front-doc/blog/tags","count":1}')}}]);
