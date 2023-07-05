@@ -10,6 +10,7 @@ import MDXImg from '@theme/MDXComponents/Img';
 import Admonition from '@theme/Admonition';
 import Intro from './Intro';
 import Maintainer from './Maintainer';
+import IconWarn from './IconWarn';
 const MDXComponents = {
   head: MDXHead,
   code: MDXCode,
@@ -27,5 +28,6 @@ const MDXComponents = {
   admonition: Admonition,
   intro: Intro,
   maintainer: Maintainer,
+  warn: IconWarn,
 };
 export default MDXComponents;
