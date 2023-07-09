@@ -26,6 +26,8 @@ import TabItem from '@theme/TabItem';
 - 可拖拽节点，但是不能自建连线。
 - 自动布局。
 
+<!--truncate-->
+
 ## 技术栈
 - react V16
 - mobx V4
