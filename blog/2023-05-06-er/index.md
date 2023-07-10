@@ -373,7 +373,7 @@ return !isEqual(prev.node?.getData(), next.node?.getData());
 
 值得注意的是，HTML/React/Vue 节点内容都是渲染在 SVG 的 [foreignObject](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/foreignObject) 元素内部，因为浏览器的兼容性问题，经常会出现一些异常的渲染行为。主要表现形式为节点内容展示不全或者节点内容闪烁。可以通过以下方式来规避：
 节点内部元素的 css 样式中不要使用 `position:absolute、position:relative、transform、opacity`。
-在 Safari 浏览器上兼容性表现会更加差。**如果项目需要兼容 Safari 浏览器，建议不要在组件中使用 react 组件库（antd、c7n 等）的复杂组件。如果使用了，需要去 Safari 浏览器 验证一下是否兼容。**
+在 Safari 浏览器上兼容性表现会更加差。**如果项目需要兼容 Safari 浏览器，建议不要在组件中使用 react 组件库（antd、c7n 等）的复杂组件。如果使用了，需要去 Safari 浏览器验证一下是否兼容。**
 
 ## 连接桩的实现
 <div align="center">
@@ -713,7 +713,8 @@ function selectNode() {
 
 
 ## 自动布局
-自动布局方法修改自 @antv/layout 中第三方开发者写的 [ErLayout](https://github.com/antvis/layout/blob/master/src/layout/er/index.ts)。主要修改了对数据格式的兼容和节点环绕的间距。
+自动布局方法修改自 @antv/layout 中第三方开发者写的 [ErLayout](https://github.com/antvis/layout/blob/master/src/layout/er/index.ts)。主要修改了对数据格式的兼容和节点环绕的间距。  
+以下是 `ERLayout` 使用方法。
 
 
 ```ts
@@ -750,7 +751,88 @@ export function executeERLayout(graph: Graph) {
 }
 ```
 
+## 位置缓存
+如果一个节点被拖动到一个新的位置，那么这个节点的位置信息就会被缓存到 Mobx Store 中。当再次打开这个节点的时候，就会读取缓存的位置信息，然后设置到节点上。  
+`nodePositions` 用来存储节点的位置信息，key 为节点的 id（即业务对象id），value 为节点的位置信息。
+
+```ts
+// 重新设置节点
+const nodePositions = erStore.getState('nodePositions', true);
+const _cacheNodePositions = cloneDeep(nodePositions);
+const cells: any[] = [];
+const graphNodeIds = graph.getNodes().map((item) => item.id);
+let newNodeId = '';
+nodes.forEach((node) => {
+  if (graphNodeIds.indexOf(node.id) === -1) {
+    newNodeId = node.id;
+  }
+  // 读取缓存位置
+  const position = nodePositions[node.id];
+  if (position) {
+    // eslint-disable-next-line no-param-reassign
+    node.x = position.x;
+    // eslint-disable-next-line no-param-reassign
+    node.y = position.y;
+  } else {
+    // 获取当前 graph 平移的位置, 添加节点到画布左上角(如果缩略图在展开,需要避开缩略图位置)
+    const { x, y } = graph.scroller.widget!.getVisibleArea();
+    let newX = isShowMiniMap ? x + 200 : x;
+    let newY = isShowMiniMap ? y + 140 : y;
+    // 当前画布上存在的节点的位置信息
+    const curNodePositions = graph.getNodes().map((item) => {
+      return item.position();
+    });
+    const _nodePositions = `${curNodePositions
+      .map((item: any) => `${item.x},${item.y}`)
+      .join(';')};`;
+    while (_nodePositions.indexOf(`${newX},${newY};`) !== -1) {
+      newX += 20;
+      newY += 20;
+    }
+    // eslint-disable-next-line no-param-reassign
+    node.x = newX;
+    // eslint-disable-next-line no-param-reassign
+    node.y = newY;
+    // 缓存位置
+    nodePositions[node.id] = { x: newX, y: newY };
+  }
+  cells.push(graph.createNode(node));
+});
+edges.forEach((edge) => {
+  if (!graph.getCellById(edge.id)) {
+    cells.push(graph.createEdge(edge));
+  }
+});
+
+// 把节点和边设置到画布上
+graph.resetCells(cells);
+
+// 没有缓存位置时,一次添加多个节点,使用自动布局
+if (keys(_cacheNodePositions).length === 0 && ids.length - graphNodes.length > 1) {
+  await executeERLayout(graph);
+}
+
+// 缓存节点位置
+graph.getNodes().forEach((node) => {
+  const { x, y } = node.getBBox();
+  nodePositions[node.id] = { x, y };
+});
+erStore.setState('nodePositions', nodePositions);
+
+// 如果是新的节点，放到画布层级最前面
+if (newNodeId) {
+  const newNode = graph.getCellById(newNodeId);
+  if (newNode) {
+    newNode.toFront();
+  }
+}
+```
+设置节点位置信息在 `updateGraphCells` 方法中，这里只展示了部分代码。  
+如果添加的是新的节点且没有缓存位置，则节点会从画布左上角往右下角根据偏移量进行计算位置。
+
 ## 参考资料
 
  - [antv/x6 官方文档(v1版本)](https://x6.antv.vision/zh/docs/tutorial/about)
+ - [antv/x6 Github 源码(v1.34.14)](https://github.com/antvis/X6/tree/%40antv/x6%401.34.14)
  - [MDN SVG 相关文档](https://developer.mozilla.org/zh-CN/docs/Web/SVG)
+ - [浅析图布局：常见可视化布局算法原理](https://juejin.cn/post/7130468756379140104)
