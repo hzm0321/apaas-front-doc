@@ -78,7 +78,7 @@ const config = {
             label: '项目开发规范', to: '/docs/developStyle',
           },
             {
-              href: 'https://beta.reactjs.org/', label: 'React Docs(BETA)',
+              href: 'https://zh-hans.react.dev/', label: 'React Docs',
             }
           ],
         }, {
