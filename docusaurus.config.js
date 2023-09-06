@@ -65,7 +65,7 @@ const config = {
           alt: '汉得中台 aPaaS 前端团队', src: 'img/logo.svg',
         }, items: [{
           type: 'doc', docId: 'developStyle', position: 'left', label: '项目开发规范',
-        }, { href: 'https://react.dev/', label: 'React Docs', position: 'left' }, {
+        }, { href: 'https://zh-hans.react.dev/', label: 'React Docs', position: 'left' }, {
           to: '/empty',
           label: 'react-vision',
           position: 'left'
