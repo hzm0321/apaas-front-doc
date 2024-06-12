@@ -248,6 +248,19 @@ pop() {
 </div>
 </details>
 
+如果允许初始化的时候传入一个未进行堆化的数组, 那个在类的 construct 中需要从最后一个父节点开始, 依次自上而下进行堆化。
+```js
+constructor(nums = []) {
+  if (nums.length) {
+    this.heapArr = nums;
+    // 自下而上堆化(除叶节点以外的其他所有节点)
+    for (let i = this.getParentIndex(nums.length-1); i >= 0; i--) {
+      this.siftDown(i)
+    }
+  }
+}
+```
+
 至此，堆的常用操作已经全部实现了。
 完整代码：
 ```js
@@ -256,14 +269,12 @@ class Heap {
 
   constructor(nums = []) {
     if (nums.length) {
+      this.heapArr = nums;
       // 自下而上堆化(除叶节点以外的其他所有节点)
       for (let i = this.getParentIndex(nums.length-1); i >= 0; i--) {
         this.siftDown(i)
-        this.heapArr = nums;
       }
-
     }
-
   }
 
   /**
