@@ -19,6 +19,8 @@ import { Dnd } from '@apaas/components/AntvX6/plugins';
 ```
 如需补充导出，到公共模块对应的组件下导出，然后在子模块导入使用
 
+<!--truncate-->
+
 ### 初始化 Graph 配置调整
 类似于滚动、快捷键、小地图等配置不在 x6 包中提供，需要安装额外的插件包，以 use 的方式引入。  
 具体例子见官方文档：https://x6.antv.antgroup.com/tutorial/plugins/scroller

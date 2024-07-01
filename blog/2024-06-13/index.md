@@ -16,6 +16,8 @@ tags: [栈, 单调栈]
 * **pop()**: 出栈
 * **peek()**: 访问栈顶
 
+<!--truncate-->
+
 #### 解决的问题
 * 有效括号判断: 如 [Leetcode 20. 有效括号](https://leetcode.cn/problems/valid-parentheses/description/)
 
