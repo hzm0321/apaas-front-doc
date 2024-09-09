@@ -198,10 +198,13 @@ const Demo = () => {
         "javascript",
         {
           provideCompletionItems: (model, position) => {
-            // 自定义变量提示规则
-            return {
-              suggestions,
-            };
+            // 只对当前编辑器实例进行处理
+            if (model.uri.toString() === editorRef.current?.getModel()?.uri.toString()) {
+              // 自定义变量提示规则
+              return {
+                suggestions,
+              };
+            }
           },
           triggerCharacters: ["."],
         }
@@ -211,10 +214,13 @@ const Demo = () => {
       "javascript",
       {
         provideHover: (model, position) => {
-          // 自定义变量提示规则
-          return {
-            contents,
-          };
+          // 只对当前编辑器实例进行处理
+          if (model.uri.toString() !== editorRef.current?.getModel()?.uri.toString()) {
+            // 自定义变量提示规则
+            return {
+              contents,
+            };
+          }
         },
       }
     );
@@ -501,6 +507,18 @@ export class MonacoVariableTips {
   }
 }
 ```
+相关类型文件
+```ts
+export interface FormatFunctionProps {
+  word: string;
+  match: string;
+  children: FormatFunctionProps[];
+  remark?: string;
+  parentWord?: string;
+}
+```
+
+
 仅需按照 `FormatFunctionProps[]` 类型传入变量规则即可，具体见项目文件。
 
 ```tsx
@@ -512,10 +530,13 @@ useEffect(() => {
       'javascript',
       {
         provideCompletionItems: (model, position) => {
-          monacoVariableTips.parseContinuousContent(model, position);
-          return {
-            suggestions: monacoVariableTips.getSuggestions() as any,
-          };
+          // 只对当前编辑器实例进行处理
+          if (model.uri.toString() !== editorRef.current?.getModel()?.uri.toString()) {
+            monacoVariableTips.parseContinuousContent(model, position);
+            return {
+              suggestions: monacoVariableTips.getSuggestions() as any,
+            };
+          }
         },
         triggerCharacters: ['.'],
       }
@@ -523,10 +544,13 @@ useEffect(() => {
     // 鼠标悬浮提示
     monacoHoverProviderRef.current = monaco.languages.registerHoverProvider('javascript', {
       provideHover: (model, position) => {
-        monacoVariableTips.parseContinuousContent(model, position);
-        return {
-          contents: monacoVariableTips.getHover(),
-        };
+        // 只对当前编辑器实例进行处理
+        if (model.uri.toString() !== editorRef.current?.getModel()?.uri.toString()) {
+          monacoVariableTips.parseContinuousContent(model, position);
+          return {
+            contents: monacoVariableTips.getHover(),
+          };
+        }
       },
     });
   }
@@ -569,3 +593,283 @@ const config: IConfig = {
 };
 export default config;
 ```
+
+### 断点调试效果
+<div align="center">
+    <img src={require('./assets/debugger.png').default} alt="node" width="100%" />
+</div>
+
+实现一个能展示断点调试效果的编辑器。
+
+代码如下：
+
+index.jsx
+```tsx
+import React, { useCallback, useEffect, useRef } from 'react';
+import MonacoEditor from 'react-monaco-editor';
+import { MonacoEditorProps } from 'react-monaco-editor/src/types';
+import * as monaco from 'monaco-editor';
+import { isNumber, uniqWith } from 'lodash';
+
+import './editor.css';
+
+interface Props extends MonacoEditorProps {
+  breakPoints: monaco.editor.IModelDeltaDecoration[]; // 断点标记
+  onBreakPointsChange?: (breakPoints: monaco.editor.IModelDeltaDecoration[]) => void;
+  onBreakPointsDataChange?: () => void; // 断点数据发生了变化
+  stopBreakpoint?: number; // 当前断点停在哪一行
+}
+
+/**
+ * 基于 monaco-editor 的设计的调试编辑器
+ * @constructor
+ */
+const MonacoDebugger: React.FC<Props> = ({
+  editorDidMount,
+  onBreakPointsChange,
+  onBreakPointsDataChange,
+  breakPoints,
+  stopBreakpoint,
+  ...props
+}) => {
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>(); // 编辑器实例
+  const monacoRef = useRef<typeof monaco>(); // monaco 实例
+  const decorationsRef = useRef<string[] | null>([]); // 装饰器缓存
+
+  const stopBreakpointRef = useRef<number | undefined>(stopBreakpoint); // 当前断点停在哪一行
+
+  useEffect(() => {
+    stopBreakpointRef.current = stopBreakpoint;
+    setCurrentBreakPoint(stopBreakpoint);
+  }, [stopBreakpoint]);
+
+  useEffect(() => {
+    const model = editorRef.current?.getModel();
+    if (model) {
+      model.deltaDecorations([], breakPoints);
+    }
+  }, [breakPoints]);
+
+  useEffect(() => {
+    // 编辑器鼠标移动事件
+    editorRef.current?.onMouseMove((e) => {
+      if (
+        e.target.detail &&
+        e.target.detail.offsetX &&
+        e.target.detail.offsetX >= 0 &&
+        e.target.detail.offsetX <= 50
+      ) {
+        const line = e.target.position?.lineNumber;
+        addFakeBreakPoint(line);
+      } else {
+        removeFakeBreakPoint();
+      }
+    });
+
+    // 编辑器鼠标离开事件
+    editorRef.current?.onMouseLeave(() => {
+      removeFakeBreakPoint();
+    });
+
+    // 编辑器鼠标点击事件
+    editorRef.current?.onMouseDown((e) => {
+      if (
+        e.target.detail &&
+        e.target.detail.offsetX &&
+        e.target.detail.offsetX >= 0 &&
+        e.target.detail.offsetX <= 50
+      ) {
+        const line = e.target.position?.lineNumber || 0;
+        let isChangeFlag = false;
+
+        if (!hasBreakPoint(line)) {
+          if (editorRef.current?.getModel()?.getLineContent(line).trim() !== '') {
+            addBreakPoint(line);
+            isChangeFlag = true;
+          }
+        } else {
+          removeBreakPoint(line);
+          isChangeFlag = true;
+        }
+
+        if (isChangeFlag) {
+          onBreakPointsDataChange?.();
+        }
+      }
+    });
+  }, []);
+
+  // 设置当前断点停在哪一行
+  const setCurrentBreakPoint = (line?: number) => {
+    const allDecorations = editorRef.current?.getModel()?.getAllDecorations();
+    // 取消行上的装饰器
+    const cancelLinesClassName = () => {
+      if (!allDecorations) return;
+      const lineBgDecorations = allDecorations.filter((v) => v.options.className);
+      const lineBgIds = lineBgDecorations.map((v) => v.id);
+      editorRef.current?.deltaDecorations(lineBgIds, []);
+    };
+    if (isNumber(line)) {
+      cancelLinesClassName();
+      // 添加断点行装饰器
+      const curLineDecoration = {
+        range: new monacoRef.current!.Range(line, 1, line, 1),
+        options: {
+          isWholeLine: true,
+          className: 'breakpoints-line',
+        },
+      };
+      editorRef.current?.deltaDecorations([], [curLineDecoration]);
+    } else {
+      cancelLinesClassName();
+    }
+  };
+
+  const handleDeltaDecorationsUpdate = useCallback(() => {
+    const model = editorRef.current?.getModel();
+    if (model) {
+      let _breakPoints = model
+        .getAllDecorations()
+        .filter((decoration) => decoration.options.linesDecorationsClassName === 'breakpoints')
+        .map((v) => ({ range: v.range, options: v.options }));
+      _breakPoints = uniqWith(_breakPoints, (arrVal, othVal) => {
+        return arrVal.range.startLineNumber === othVal.range.startLineNumber;
+      });
+      onBreakPointsChange?.(_breakPoints);
+    }
+  }, []);
+
+  // 该位置上是否已经存在断点
+  const hasBreakPoint = useCallback((line) => {
+    const decorations = editorRef.current?.getLineDecorations(line);
+    if (decorations?.length) {
+      for (const decoration of decorations) {
+        if (decoration.options.linesDecorationsClassName === 'breakpoints') {
+          return true;
+        }
+      }
+    }
+    return false;
+  }, []);
+
+  // 添加提示断点
+  const addFakeBreakPoint = useCallback((line) => {
+    const fakeBreakPointValue = {
+      range: new monacoRef.current!.Range(line, 1, line, 1),
+      options: {
+        isWholeLine: true,
+        linesDecorationsClassName: 'breakpoints-fake',
+      },
+    };
+    if (decorationsRef.current) {
+      decorationsRef.current =
+        editorRef.current?.deltaDecorations(decorationsRef.current, [fakeBreakPointValue]) || [];
+    }
+  }, []);
+
+  // 删除提示断点
+  const removeFakeBreakPoint = useCallback(() => {
+    if (decorationsRef.current) {
+      decorationsRef.current =
+        editorRef.current?.deltaDecorations(decorationsRef.current, []) || [];
+    }
+  }, []);
+
+  // 添加断点
+  const addBreakPoint = useCallback((line) => {
+    const model = editorRef.current?.getModel();
+    if (!model) return;
+    if (monacoRef.current) {
+      const breakPointValue = {
+        range: new monacoRef.current.Range(line, 1, line, 1),
+        options: {
+          isWholeLine: true,
+          linesDecorationsClassName: 'breakpoints',
+        },
+      };
+      model.deltaDecorations([], [breakPointValue]);
+      handleDeltaDecorationsUpdate();
+    }
+  }, []);
+
+  // 删除断点
+  const removeBreakPoint = useCallback((line) => {
+    if (editorRef.current) {
+      const model = editorRef.current?.getModel();
+      if (!model) return;
+      let decorations;
+      const ids: string[] = [];
+      if (line !== undefined) {
+        decorations = editorRef.current.getLineDecorations(line);
+      } else {
+        decorations = editorRef.current.getModel()?.getAllDecorations();
+      }
+      for (const decoration of decorations) {
+        if (decoration.options.linesDecorationsClassName === 'breakpoints') {
+          ids.push(decoration.id);
+        }
+      }
+      if (ids?.length) {
+        model.deltaDecorations(ids, []);
+      }
+      handleDeltaDecorationsUpdate();
+    }
+  }, []);
+
+  // 获取编辑器实例
+  const editorDidMountHandle = useCallback(
+    (editor: monaco.editor.IStandaloneCodeEditor, monacoIns: typeof monaco) => {
+      editorRef.current = editor;
+      monacoRef.current = monacoIns;
+      editorDidMount?.(editor, monacoIns);
+    },
+    []
+  );
+
+  return <MonacoEditor editorDidMount={editorDidMountHandle} {...props} />;
+};
+
+export default MonacoDebugger;
+
+```
+editor.css 文件
+
+```css
+.breakpoints-fake {
+  width: 18px !important;
+  height: 18px !important;
+  left: 0 !important;
+  top: 0 !important;
+  cursor: pointer !important;
+}
+
+.breakpoints-fake::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #F23A50;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.breakpoints {
+  width: 10px !important;
+  height: 10px !important;
+  left: 9px !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50%;
+  background: #F23A50;
+  cursor: pointer;
+}
+
+.breakpoints-line {
+  background-color: rgba(242,58,80,0.4);
+}
+```
+
