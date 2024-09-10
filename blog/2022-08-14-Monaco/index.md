@@ -872,4 +872,82 @@ editor.css 文件
   background-color: rgba(242,58,80,0.4);
 }
 ```
+### 添加鼠标右键菜单
 
+主要是使用 monaco 实例上的 `addAction` 方法，添加一个右键菜单。为了方便使用可以封装成一个 hook。  
+这里以添加一个 js 代码美化功能的右键菜单为例，代码如下：
+```ts
+import * as monaco from 'monaco-editor';
+import beautify from 'js-beautify';
+import { useEffect } from 'react';
+
+/**
+ * 为 monaco-editor 右键选项添加代码美化功能
+ * @param editorInstance
+ */
+const useEditorBeautifyJsCode = (editorInstance?: monaco.editor.IStandaloneCodeEditor) => {
+  useEffect(() => {
+    if (editorInstance) {
+      editorInstance.addAction({
+        id: 'beautifyJsCode',
+        label: '美化 JS 代码',
+        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyF],
+        contextMenuGroupId: '2_customCommand',
+        run() {
+          const oldCode = editorInstance.getValue();
+          const newCode = beautify(oldCode, {
+            indent_size: 2,
+          });
+          editorInstance.executeEdits('', [
+            {
+              range: new monaco.Range(1, 1, editorInstance.getModel()!.getLineCount() + 1, 1),
+              text: newCode,
+            },
+          ]);
+        },
+      });
+    }
+  }, [editorInstance]);
+};
+
+export default useEditorBeautifyJsCode;
+
+```
+
+使用
+```tsx
+import React, { useState, useCallback, useRef } from "react";
+import MonacoEditor from "react-monaco-editor";
+import { EditorDidMount} from 'react-monaco-editor/lib/types';
+
+import useEditorBeautifyJsCode from './useEditorBeautifyJsCode'
+
+const Demo = () => {
+
+  const editorRef = useRef<Parameters<EditorDidMount>[0]>(); // 编辑器实例
+  
+  // This will right
+  useEditorBeautifyJsCode(editorRef.current);
+
+  // 获取编辑器实例
+  const editorDidMountHandle: EditorDidMount = useCallback(
+    (editor) => {
+      editorRef.current = editor;
+    },[]);
+
+  return (
+    <MonacoEditor
+      language="javascript"
+      height="100%"
+      theme="vs"
+      options={{
+        roundedSelection: false,
+        cursorStyle: "line",
+        wordWrap: "on",
+      }}
+      editorDidMount={editorDidMountHandle}
+    />
+  );
+};
+
+```

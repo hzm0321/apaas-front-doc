@@ -51,6 +51,8 @@ const config = {
       }, blog: {
         showReadingTime: true, postsPerPage: 10, // Please change this to your repo.
         // Remove this to remove the "edit this page" links.
+        blogSidebarTitle: '全部文章',
+        blogSidebarCount: 'ALL',
       }, theme: {
         customCss: require.resolve('./src/css/custom.css'),
       }, gtag: {
