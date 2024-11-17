@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkapaas_front_doc=self.webpackChunkapaas_front_doc||[]).push([[8159],{6501:a=>{a.exports=JSON.parse('{"permalink":"/apaas-front-doc/blog/tags/type-script","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
