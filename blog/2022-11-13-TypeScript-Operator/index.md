@@ -260,3 +260,4 @@ type MyRequired<T> = {
 
 const My: MyRequired<SomeType> = {}; // 类型 "{}" 中缺少属性 "name"
 ```
+<comment/>

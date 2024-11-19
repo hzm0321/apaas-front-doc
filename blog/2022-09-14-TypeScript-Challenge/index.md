@@ -598,3 +598,5 @@ type Last<T extends any[]> = [never, ...T][T['length']]
 2. 使用 `T['length']` 来获取最后一个元素
 
 </details>
+
+<comment/>

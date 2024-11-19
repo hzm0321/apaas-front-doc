@@ -319,3 +319,4 @@ const getName = (animal: Dog | Cat) => {
 ## 泛型
 
 
+<comment/>

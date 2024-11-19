@@ -28,3 +28,5 @@ tags: [栈, 单调栈]
 #### 解决的问题
 * 下一个更大/更小元素问题：如 [Leetcode 1475. 商品折扣后的最终价格](https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/description/)
 * 栈的最小值: 如 [Leetcode 面试题 03.02. 栈的最小值](https://leetcode.cn/problems/min-stack-lcci/description/)
+
+<comment/>

@@ -110,31 +110,21 @@ const config = {
         ],
       }, colorMode: {
         defaultMode: 'light', disableSwitch: false, respectPrefersColorScheme: false,
-      }, // 告示条
-      announcementBar: {
-        id: '2020-09-14',
-        content: '<a target="_blank" rel="noopener noreferrer" href="/apaas-front-doc/docs/developStyle">《项目开发规范文档》</a>目前仍处于编写阶段，如果您在使用过程中有更好的想法或建议，欢迎企业微信私聊该篇文章对应的维护人或提<a target="_blank" rel="noopener noreferrer" href="https://www.wenjuan.com/s/UZBZJvrf3K/#">问卷反馈</a>',
-        backgroundColor: 'rgb(232,243,255)',
-        textColor: '#012492',
-        isCloseable: true,
       },
+      // 告示条
+      // announcementBar: {
+      //   id: '2020-09-14',
+      //   content: '<a target="_blank" rel="noopener noreferrer" href="/apaas-front-doc/docs/developStyle">《项目开发规范文档》</a>目前仍处于编写阶段，如果您在使用过程中有更好的想法或建议，欢迎企业微信私聊该篇文章对应的维护人或提<a target="_blank" rel="noopener noreferrer" href="https://www.wenjuan.com/s/UZBZJvrf3K/#">问卷反馈</a>',
+      //   backgroundColor: 'rgb(232,243,255)',
+      //   textColor: '#012492',
+      //   isCloseable: true,
+      // },
     }),
 
   plugins: ['docusaurus-plugin-sass', ['docusaurus-plugin-less', { /* options */ lessOptions: {
       javascriptEnabled: true,
     }
   }],],
-
-  // webpack: {
-  //   jsLoader: ()=> ({
-  //     rules: [
-  //       {
-  //         test: /\.(eot)$/,//fonts目录下四个文件后缀名
-  //         use: ["url-loader"],
-  //       },
-  //     ],
-  //   })
-  // }
 };
 
 module.exports = config;

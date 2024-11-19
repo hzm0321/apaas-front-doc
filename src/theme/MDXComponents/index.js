@@ -11,6 +11,8 @@ import Admonition from '@theme/Admonition';
 import Intro from './Intro';
 import Maintainer from './Maintainer';
 import IconWarn from './IconWarn';
+import Comment from "./Comment";
+
 const MDXComponents = {
   head: MDXHead,
   code: MDXCode,
@@ -29,5 +31,6 @@ const MDXComponents = {
   intro: Intro,
   maintainer: Maintainer,
   warn: IconWarn,
+  comment: Comment,
 };
 export default MDXComponents;
