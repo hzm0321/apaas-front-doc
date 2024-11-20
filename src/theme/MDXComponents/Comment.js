@@ -1,5 +1,5 @@
 import React from 'react';
-import Giscus from '@giscus/react';
+import Giscus from '../../components/Giscus';
 
 export default function Comment() {
   return (
