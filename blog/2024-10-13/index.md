@@ -13,9 +13,10 @@ tags: [TypeScript]
 * `null`: 表示 null 值。
 * `undefined`: 表示 undefined 值。
 * `symbol`: 用于创建唯一值的类型。
-* `bigint`: 表示大整数。
+
 
 ### 复杂类型
+* 大整数类型: `bigint`。
 * 数组类型：`[]` 或 `Array<T>`。
 * 对象类型：`{}`。
 * object 类型：`object`, **表示非原始类型**。
