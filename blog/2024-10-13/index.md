@@ -34,6 +34,8 @@ tags: [TypeScript]
 * never 类型：`never`。
 * Promise 类型：`Promise<T>`。
 
+<!--truncate-->
+
 ### 联合类型
 **语法形式：**
 ```ts

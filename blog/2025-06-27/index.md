@@ -29,6 +29,8 @@ tags: [Taro]
 
 ![alt Taro3](./assets/taro3-runtime.png)
 
+<!--truncate-->
+
 ### Taro 3 的 React 适配
 ![alt Taro3](./assets/taro3-react.png)
 
@@ -93,6 +95,10 @@ Vue 和 React 最大的区别就在于运行时的 `CreateVuePage` 方法，这�
 <div align="center">
     <img src={require('./assets/taro3-size.png').default} alt="Taro2" width="100%" />
 </div>
+
+## 参考资料
+
+- [GMTC | 《小程序跨框架开发的探索与实践》演讲全文](https://mp.weixin.qq.com/s?__biz=MzU3NDkzMTI3MA==&mid=2247483770&idx=1&sn=ba2cdea5256e1c4e7bb513aa4c837834&poc_token=HJhVXmij2L1KIqydmwFfwgdD-pwBvWkL5WDLmG0G)
 
 
 <comment/>
